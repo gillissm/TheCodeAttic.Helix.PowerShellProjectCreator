@@ -214,8 +214,8 @@ function Get-ProjectItem{
             return $ProjectItem
         }
 
-        if($ProjectItem.ProjectItems.Count -ge 1)
-        {
+        #if($ProjectItem.ProjectItems.Count -ge 1)
+        #{
             foreach($pi in $ProjectItem.ProjectItems)
             {
                 $temp = Get-ProjectItem $pi $ItemName
@@ -224,7 +224,7 @@ function Get-ProjectItem{
                     return $temp
                 }
             }        
-        }
+        #}
         return $null
     }
     catch {
@@ -624,7 +624,7 @@ function Add-PackageToModule{
         else {
             Install-Package $PackageName -ProjectName $ModuleName
         }
-        Write-StepInfo -Tag $PackageName -Message "Package has been installed"
+        Write-StepInfo -Tag $PackageName -Message "Package has been installed"        
     }
     catch {
         # Write the error information then rethrow
@@ -673,7 +673,7 @@ function Add-PackageToModule{
 # If no value is provided the latest version will be installed.
 #
 # Parameter validation will force proper formatt of #.#.#### for example 9.0.171219
-# Regex is: ^[7-9]{1}\.\d{1}\.\d{6}$
+# Regex is: ^[7-9]{1}\.\d{1}\.\d{6}$|\s*
 #
 # OPTIONAL
 #
@@ -708,7 +708,7 @@ function Set-ModuleFiles{
 		[Parameter(Position=0, Mandatory=$True)]
         [string]$ModuleName,
         [Parameter(Position=1, Mandatory=$false)]
-        [ValidatePattern("^[7-9]{1}\.\d{1}\.\d{6}$")]
+        [ValidatePattern("^[7-9]{1}\.\d{1}\.\d{6}$|\s*")]
         [string] $SitecoreVersion,
         [Parameter(Position=2, Mandatory=$false)]
         [string] $DotNETTargetFramework='262662',
@@ -759,28 +759,34 @@ function Set-ModuleFiles{
         }
         #Install MVC
         Add-PackageToModule -ModuleName $ModuleName -PackageName 'Microsoft.AspNet.Mvc'
+        $moduleProj.Save()
 
         #Install Sitecore.Kernel.NoReference
         Add-PackageToModule -ModuleName $ModuleName -PackageName 'Sitecore.Kernel.NoReferences' -PackageVersion $SitecoreVersion
+        $moduleProj.Save()
 
         #Install Sitecore.MVC.NoReference
         Add-PackageToModule -ModuleName $ModuleName -PackageName 'Sitecore.Mvc.NoReferences' -PackageVersion $SitecoreVersion
+        $moduleProj.Save()
 
         #Install Sitecore.Logging.NoReference
         Add-PackageToModule -ModuleName $ModuleName -PackageName 'Sitecore.Logging.NoReferences' -PackageVersion $SitecoreVersion
+        $moduleProj.Save()
 
         #Install Microsoft.Extensions.DependencyInjection
         Add-PackageToModule -ModuleName $ModuleName -PackageName 'Microsoft.Extensions.DependencyInjection' -PackageVersion '1.0.0'
+        $moduleProj.Save()
 
-        #Install Glass.Mapper.Sc.Core if required
+        #Install Glass.Mapper.Sc if required
         if($IncludeGlassMapper)
         {
-            Add-PackageToModule -ModuleName $ModuleName -PackageName 'Glass.Mapper.Sc.Core'	
+            Add-PackageToModule -ModuleName $ModuleName -PackageName 'Glass.Mapper.Sc'	
+            $moduleProj.Save()
         }
 
         #Set All Assemblies as CopyLocal = False
         Write-StepInfo -Tag $ModuleName -Message "Setting references to Copy Local = False"
-        $moduleProj.Object.References|ForEach-Object{try{$_.CopyLocal=$false}catch{Write-host "error for: $($_.Name)"}}
+        $moduleProj.Object.References|ForEach-Object{try{$_.CopyLocal=$false}catch{}}
         
         #SAVE PROJECT AFTER CHANGES
         Write-StepInfo -Tag "Set Module Files: $ModuleName" -Message "Saving the Module"
@@ -1443,7 +1449,7 @@ function Write-StepHeader {
 # If no value is provided the latest version will be installed.
 #
 # Parameter validation will force proper formatt of #.#.#### for example 9.0.171219
-# Regex is: ^[7-9]{1}\.\d{1}\.\d{6}$
+# Regex is: ^[7-9]{1}\.\d{1}\.\d{6}$|\s*
 #
 # OPTIONAL
 #
@@ -1483,7 +1489,7 @@ function Invoke-ModuleFileSetup{
         [ValidateSet("Feature","Foundation", "Project")]
         [string]$Layer,        
         [parameter(Position=2,Mandatory=$false)]
-        [ValidatePattern("^[7-9]{1}\.\d{1}\.\d{6}$")]      
+        [ValidatePattern("^[7-9]{1}\.\d{1}\.\d{6}$|\s*")]      
         [string]$SitecoreVersion,
         [parameter(Position=3,Mandatory=$false)]        
         [string]$TemplateName ="Class.vstemplate",
@@ -1719,7 +1725,7 @@ function Invoke-CreateModule{
 # If no value is provided the latest version will be installed.
 #
 # Parameter validation will force proper formatt of #.#.#### for example 9.0.171219
-# Regex is: ^[7-9]{1}\.\d{1}\.\d{6}$
+# Regex is: ^[7-9]{1}\.\d{1}\.\d{6}$|\s*
 #
 # OPTIONAL
 #
@@ -1764,7 +1770,7 @@ function Invoke-NewModule{
         [ValidateSet("Feature","Foundation", "Project")]
         [string]$Layer,
         [parameter(Position=2,Mandatory=$false)]
-        [ValidatePattern("^[7-9]{1}\.\d{1}\.\d{6}$")]
+        [ValidatePattern("^[7-9]{1}\.\d{1}\.\d{6}$|\s*")]
         [string]$SitecoreVersion,
         [parameter(Mandatory=$false)]
         [switch]$UseGlass,
