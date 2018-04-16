@@ -1482,12 +1482,12 @@ function Invoke-ModuleFileSetup{
         [parameter(Position=1, Mandatory=$true)]
         [ValidateSet("Feature","Foundation", "Project")]
         [string]$Layer,        
-        [parameter(Postion=2,Mandatory=$false)]
+        [parameter(Position=2,Mandatory=$false)]
         [ValidatePattern("^[7-9]{1}\.\d{1}\.\d{6}$")]      
         [string]$SitecoreVersion,
-        [parameter(Postion=3,Mandatory=$false)]        
+        [parameter(Position=3,Mandatory=$false)]        
         [string]$TemplateName ="Class.vstemplate",
-        [parameter(Postion=4,Mandatory=$false)]        
+        [parameter(Position=4,Mandatory=$false)]        
         [string]$TemplateFilter ='*Web\CSharp\*',
         [parameter(Mandatory=$false)]
         [switch]$UseGlass
@@ -1619,7 +1619,7 @@ function Invoke-SerializationProject{
 ##############################
 function Invoke-SolutionRootPath{
     param(
-        [parameter(Postion=0, Mandatory=$false)]
+        [parameter(Position=0, Mandatory=$false)]
         [string]$SourceFolderName = 'src'
        
     )
@@ -1666,7 +1666,7 @@ function Invoke-SolutionRootPath{
 function Invoke-CreateModule{
     [CmdletBinding(SupportsShouldProcess=$true)]
     param(
-        [parameter(Postion=0, Mandatory=$true)]
+        [parameter(Position=0, Mandatory=$true)]
         [string]$ModuleName,
         [parameter(Position=1, Mandatory=$true)]
         [ValidateSet("Feature","Foundation", "Project")]
@@ -1889,3 +1889,4 @@ Export-ModuleMember -Function Invoke-SerializationProject
 Export-ModuleMember -Function Invoke-CreateModule
 Export-ModuleMember -Function Invoke-SolutionRootPath
 Export-ModuleMember -Function Invoke-NewModule
+
