@@ -1852,7 +1852,7 @@ function Invoke-NewModule{
 #.NOTES
 # n/a
 ##############################
-function Invoke-ViusalStudioSolution{
+function Invoke-VisualStudioSolution{
     [CmdletBinding(SupportsShouldProcess=$true)]
     param(
         [parameter(Mandatory=$true)]
@@ -1883,7 +1883,7 @@ Export-ModuleMember -Function Write-StepHeader
 Export-ModuleMember -Function Write-StepInfo
 
 ### EXPORT MAIN TASK METHODS
-Export-ModuleMember -Function Invoke-ViusalStudioSolution
+Export-ModuleMember -Function Invoke-VisualStudioSolution
 Export-ModuleMember -Function Invoke-ModuleFileSetup
 Export-ModuleMember -Function Invoke-SerializationProject
 Export-ModuleMember -Function Invoke-CreateModule
