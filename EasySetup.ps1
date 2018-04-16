@@ -8,11 +8,11 @@ if(-NOT (Test-path -Path $ModulePath))
 }
 
 Write-Host "Download and save $ModuleFolderName" -ForegroundColor 'Green'
-(Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/gillissm/TheCodeAttic.Helix.PowerShellProjectCreator/master/HelixProjectCreator.psm1).Content | Out-File "$ModulePath\$ModuleName.psm1" -Force
+(Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/gillissm/TheCodeAttic.Helix.PowerShellProjectCreator/master/HelixProjectCreator.psm1).Content | Out-File $(Join-Path $ModulePath "$ModuleFolderName.psm1") -Force
 
 Write-Host "Update and create the NuGet profile"
 $profilePath = Split-Path $profile
-$NuGetProfilePath = Join-Path $profile "NuGet_profile.ps1"
+$NuGetProfilePath = Join-Path $profilePath "NuGet_profile.ps1"
 $ImportModuleCommand = "Import-Module $ModuleFolderName"
 
 
