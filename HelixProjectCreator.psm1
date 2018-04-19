@@ -912,7 +912,7 @@ function Add-ModuleConfigFile{
         $sitecorenode = $config.CreateElement("sitecore")
         $servicesnode = $config.CreateElement("services")
         $configuratornode = $config.CreateElement("configurator")
-        $tempValue  = "{0}.DI.RegisterDependencies, {0}" -f $ModuleName
+        $tempValue  = "{0}.DI.RegisterContainer, {0}" -f $ModuleName
         $configuratornode.SetAttribute("type", $tempValue)
         $servicesnode.AppendChild($configuratornode)
         $sitecorenode.AppendChild($servicesnode)
@@ -1895,4 +1895,3 @@ Export-ModuleMember -Function Invoke-SerializationProject
 Export-ModuleMember -Function Invoke-CreateModule
 Export-ModuleMember -Function Invoke-SolutionRootPath
 Export-ModuleMember -Function Invoke-NewModule
-
