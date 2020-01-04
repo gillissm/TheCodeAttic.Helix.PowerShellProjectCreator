@@ -24,7 +24,7 @@
 # n/a
 ##############################
 function Invoke-ProjectCreatorEasyInstall{
-    $ModuleFolderName = 'TheCodeAttic.Helix.PowerShellProjectCreator'
+    $ModuleFolderName = 'Helix.ProjectCreator'
     $ModulePath =($env:PSModulePath).Split(";")[0] + "\$ModuleFolderName"
 
     if(-NOT (Test-path -Path $ModulePath))
@@ -34,7 +34,7 @@ function Invoke-ProjectCreatorEasyInstall{
     }
 
     Write-Host "Download and save $ModuleFolderName" -ForegroundColor 'Green'
-    (Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/gillissm/TheCodeAttic.Helix.PowerShellProjectCreator/master/HelixProjectCreator.psm1).Content | Out-File $(Join-Path $ModulePath "$ModuleFolderName.psm1") -Force
+    (Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/gillissm/TheCodeAttic.Helix.PowerShellProjectCreator/master/Helix.ProjectCreator.psm1).Content | Out-File $(Join-Path $ModulePath "$ModuleFolderName.psm1") -Force
 
     Write-Host "Update and create the NuGet profile"
     $profilePath = Split-Path $profile
