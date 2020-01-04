@@ -87,8 +87,6 @@ Get-Module Helix.ProjectCreator -ListAvailable
 Invoke-NewModule -ModuleName PageContent -Layer Feature -UseUnicorn
 ````
 
-![New Module with Unicorn](helix-image5.png)
-
 ### Add a new empty module to a solution
 
 In addition to creating a project with folders and NuGet references, the script can add a blank or empty project with the given name to the solution by including the flag *-CreateEmptyProject*.
@@ -96,8 +94,6 @@ In addition to creating a project with folders and NuGet references, the script 
 ````PowerShell
 Invoke-NewModule -ModuleName PlaceHolder -Layer Foundation -CreateEmptyProject
 ````
-
-![New Empty Module](helix-image6.png)
 
 See the module file for a listing of all optional parameters, including the ability to set a specific Sitecore version.
 
