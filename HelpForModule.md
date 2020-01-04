@@ -76,57 +76,6 @@ If you do NOT 'wake-up' the console Visual Studio will freeze when creating the 
     Invoke-CreateModule "Coffeehouse.Foundation.Search" "Foundation"
 ````
 
-## Invoke-ModuleFileSetup
-
-### SYNOPSIS
-
-Performs a number of different steps in setting up and configuring the Module Web project.
-
-#### STEP 1
-
-Configures the following for the project:
-
-* Web.config build action is set to NONE
-* Set Target .NET Framework to given value or default of 4.7.1
-* NuGet Install of - Microsoft.AspNet.MVC
-* NuGet Install of - Sitecore.Kernel.NoReferences
-* NuGet Install of - Sitecore.Mvc.NoReferences
-* NuGet Install of - Sitecore.Logging.NoReferences
-* NuGet Install of -  Microsoft.Extensions.DependencyInjection.Abstractions version 1.0.0
-* NUGet Install of - Galss.Mapper.Sc if required (default is NOT to install)
-* Set all Reference DLLs to be Copy Local = False
-
-#### STEP 2
-
-Adds a Module specific config file to App_Config -> Include -> $Layer, which is then configured for Dependecny Register class
-
-#### STEP 3
-
-Adds default folders to a Helix based project for 
-* DI
-* Views
-* Views\$ModuleName
-* Repositories
-* Constants
-* Controllers
-* Models
-
-#### STEP 4
-
-Creates a RegisterContainer.cs file inside the folder 'DI' with the default logic
-
-### -------------------------- EXAMPLE 1 --------------------------
-
-````PowerShell
-    Invoke-ModuleFileSetup "Coffeehouse.Featuer.ShoppingHistory" "Feature" -UseGlass
-````
-
-### -------------------------- EXAMPLE 2 --------------------------
-
-````PowerShell
-    Invoke-ModuleFileSetup -ModuleName "Coffeehouse.Featuer.ShoppingHistory" -Layer "Feature" -UseGlass
-````
-
 ## Invoke-NewModule
 
 ### SYNOPSIS
@@ -144,31 +93,31 @@ If you do NOT 'wake-up' the console Visual Studio will freeze when creating the 
 ### -------------------------- EXAMPLE 1 --------------------------
 
 ````PowerShell
-    >Invoke-NewModule -ModuleName "Coffeehouse.Demo.Feature.Ad" -Layer "Feature" -UseGlass -UseTDS
+    Invoke-NewModule -ModuleName "Ad" -Layer "Feature"
 ````
 
 ### -------------------------- EXAMPLE 2 --------------------------
 
 ````PowerShell
-    Invoke-NewModule -ModuleName "Coffeehouse.Demo.Feature.Ad" -Layer "Feature" -SitecoreVersion "8.2.171121"
+    Invoke-NewModule -ModuleName "Ad" -Layer "Feature" -UseTDS
 ````
 
 ### -------------------------- EXAMPLE 3 --------------------------
 
 ````PowerShell
-    Invoke-NewModule -ModuleName "Coffeehouse.Demo.Feature.Ad" -Layer "Feature" -SitecoreVersion "8.2.171121" -UseGlass -UseTDS
+    Invoke-NewModule -ModuleName "Ad" -Layer "Feature" -UseUnicorn
 ````
 
 ### -------------------------- EXAMPLE 4 --------------------------
 
 ````PowerShell
-    Invoke-NewModule -ModuleName "Coffeehouse.Demo.Feature.Ad" -Layer "Feature" -SitecoreVersion "8.2.171121" -UseGlass -UseUnicorn
+    Invoke-NewModule -ModuleName "Ad" -Layer "Feature" -SitecoreVersion "8.2.171121"
 ````
 
 ### -------------------------- EXAMPLE 5 --------------------------
 
 ````PowerShell
-    Invoke-NewModule -ModuleName "Coffeehouse.Demo.Feature.Ad" -Layer "Feature" -SitecoreVersion "8.2.171121" -UseTDS
+    Invoke-NewModule -ModuleName "Ad" -Layer "Feature" -SitecoreVersion "8.2.171121" -UseUnicorn
 ````
 
 ## Invoke-SerializationProject
@@ -177,12 +126,10 @@ If you do NOT 'wake-up' the console Visual Studio will freeze when creating the 
 
 Creates a serialization project for the named module
 
-IMPORTANT: Script only creates TDS projects currently that are always module Name 'Master'
-
 ### -------------------------- EXAMPLE 1 --------------------------
 
 ````PowerShell
-    Invoke-SerializationProject -ModuleName "Coffeehouse.Foundation.Search" -Layer "Foundation" -UseTDS
+    Invoke-SerializationProject -ProjectName "Coffeehouse.Foundation.Search" -Layer "Foundation" -UseTDS
 ````
 
 ### -------------------------- EXAMPLE 2 --------------------------
@@ -209,21 +156,21 @@ Retrieves the active solutions path to its 'src' folder
 
 ### SYNOPSIS
 
-Creates a new Visual Studio Solution and adds basic Helix solution and file system folders.
+Creates a new Visual Studio Solution at the given Directory Path with base folders
 
-File System will look like the following
-    - Directory Path
-    -- SolutionName
-    -- SolutionName.sln
-    -- lib
-    -- src
-    --- __Documents
-    --- __Scripts
-    --- Feature
-    --- Foundation
-    --- Project
+ File System will look like the following
+ - Directory Path
+ -- Solution Name
+ -- SolutionName.sln
+ -- lib
+ -- __Documents
+ -- __Scripts
+ -- src
+ --- Feature
+ --- Foundation
+ --- Project
 
-### -------------------------- EXAMPLE 2 --------------------------
+### -------------------------- EXAMPLE 1 --------------------------
 
 ````PowerShell
     Invoke-VisualStudioSolution -SolutionPath "C:\Code" -SolutionName "Coffeehouse.Demo.SC9"
@@ -248,18 +195,3 @@ Writes a message in the following format to the screen, useful for delineating m
     Write-StepHeader -TaskName "Create the World" -TaskType "Creation"
 ````
 
-## Write-StepInfo
-
-### SYNOPSIS
-
-Writes text to the screen in the format:
-    [$Tag] $Message
-
-If $TextColor is set the foreground color of the message will be shown as this value
-
-### -------------------------- EXAMPLE 1 --------------------------
-
-````PowerShell
-    Write-StepInfo -TaskInfo "Step 1" -Message "Hello World loading."
-    [Step 1] Hello World loading.
-````
