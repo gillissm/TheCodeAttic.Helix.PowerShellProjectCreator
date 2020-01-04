@@ -13,7 +13,8 @@ To make adaption as easy as possible I've simplified setup to the following thre
 3. Enter the following
 
 ````PowerShell
-(Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/gillissm/TheCodeAttic.Helix.PowerShellProjectCreator/master/ProjectCreatorEasyInstall.ps1).Content | Out-File "ProjectCreatorEasyInstall.ps1"````
+(Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/gillissm/TheCodeAttic.Helix.PowerShellProjectCreator/master/ProjectCreatorEasyInstall.ps1).Content | Out-File "ProjectCreatorEasyInstall.ps1"
+
 .\ProjectCreatorEasyInstall.ps1
 ````
 
@@ -57,8 +58,6 @@ The following will allow you to confirm that the module is accessible for usage.
 Get-Module Helix.ProjectCreator -ListAvailable
 ```
 
-![Confirm Module is Loaded](helix-helix-image3.png)
-
 ## Create a new Helix Solution
 
 1. Open Visual Studio as Admin
@@ -68,10 +67,8 @@ Get-Module Helix.ProjectCreator -ListAvailable
    * Include the parameter '-DirectoryPath', this is the fully qualified path to the parent directory the solution should be created at
 
 ````PowerShell
-> Invoke-VisualStudioSolution -SolutionName HelixAttic.Sample -DirectoryPath C:\Code\git-TheCodeAttic\
+Invoke-VisualStudioSolution -SolutionName HelixAttic.Sample -DirectoryPath C:\Code\git-TheCodeAttic\
 ````
-
-![New Solution and File Structure](helix-image4.png)
 
 ## Add a new module to a solution
 
